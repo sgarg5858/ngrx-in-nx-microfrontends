@@ -1,4 +1,11 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "posts": "apps/posts",
+    "posts-data-access": "libs/posts/data-access",
+    "posts-e2e": "apps/posts-e2e",
+    "posts-feature": "libs/posts/feature",
+    "shell": "apps/shell",
+    "shell-e2e": "apps/shell-e2e"
+  }
 }

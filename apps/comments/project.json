@@ -1,0 +1,101 @@
+{
+  "projectType": "application",
+  "root": "apps/comments",
+  "sourceRoot": "apps/comments/src",
+  "prefix": "ngrx-in-nx-mfe",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/comments",
+        "index": "apps/comments/src/index.html",
+        "main": "apps/comments/src/main.ts",
+        "polyfills": "apps/comments/src/polyfills.ts",
+        "tsConfig": "apps/comments/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/comments/src/favicon.ico", "apps/comments/src/assets"],
+        "styles": ["apps/comments/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/comments/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/comments/src/environments/environment.ts",
+              "with": "apps/comments/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/comments/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "comments:build:production"
+        },
+        "development": {
+          "browserTarget": "comments:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "comments:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/comments/src/**/*.ts",
+          "apps/comments/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/comments"],
+      "options": {
+        "jestConfig": "apps/comments/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

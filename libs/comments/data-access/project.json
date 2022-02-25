@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/comments/data-access",
+  "sourceRoot": "libs/comments/data-access/src",
+  "prefix": "ngrx-in-nx-mfe",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/comments/data-access"],
+      "options": {
+        "jestConfig": "libs/comments/data-access/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/comments/data-access/src/**/*.ts",
+          "libs/comments/data-access/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

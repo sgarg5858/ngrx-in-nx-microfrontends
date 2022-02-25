@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let album of (albums$ | async)">
+        {{album | json}}
+    </li>
+</ul>

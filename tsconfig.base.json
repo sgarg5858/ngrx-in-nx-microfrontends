@@ -15,10 +15,32 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ngrx-in-nx-mfe/albums/data-access": [
+        "libs/albums/data-access/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/albums/feature": ["libs/albums/feature/src/index.ts"],
+      "@ngrx-in-nx-mfe/comments/data-access": [
+        "libs/comments/data-access/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/comments/feature": [
+        "libs/comments/feature/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/photos/data-access": [
+        "libs/photos/data-access/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/photos/feature": ["libs/photos/feature/src/index.ts"],
       "@ngrx-in-nx-mfe/posts/data-access": [
         "libs/posts/data-access/src/index.ts"
       ],
-      "@ngrx-in-nx-mfe/posts/feature": ["libs/posts/feature/src/index.ts"]
+      "@ngrx-in-nx-mfe/posts/feature": ["libs/posts/feature/src/index.ts"],
+      "@ngrx-in-nx-mfe/todos/data-access": [
+        "libs/todos/data-access/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/todos/feature": ["libs/todos/feature/src/index.ts"],
+      "@ngrx-in-nx-mfe/users/data-access": [
+        "libs/users/data-access/src/index.ts"
+      ],
+      "@ngrx-in-nx-mfe/users/feature": ["libs/users/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

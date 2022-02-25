@@ -1,0 +1,28 @@
+{
+  "root": "apps/albums-e2e",
+  "sourceRoot": "apps/albums-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/albums-e2e/cypress.json",
+        "devServerTarget": "albums:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "albums:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/albums-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["albums"]
+}

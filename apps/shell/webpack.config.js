@@ -46,6 +46,11 @@ module.exports = {
     new ModuleFederationPlugin({
       remotes: {
         posts: 'http://localhost:4201/remoteEntry.js',
+        comments: 'http://localhost:4202/remoteEntry.js',
+        albums: 'http://localhost:4203/remoteEntry.js',
+        photos: 'http://localhost:4204/remoteEntry.js',
+        todos: 'http://localhost:4205/remoteEntry.js',
+        users: 'http://localhost:4206/remoteEntry.js',
       },
       shared: share({
         '@angular/core': {
@@ -78,19 +83,19 @@ module.exports = {
           requiredVersion: 'auto',
           includeSecondaries: true,
         },
-        '@ngrx/store':{
+        '@ngrx/store': {
           singleton: true,
           strictVersion: true,
           requiredVersion: 'auto',
           includeSecondaries: true,
         },
-        "@ngrx/effects":{
+        '@ngrx/effects': {
           singleton: true,
           strictVersion: true,
           requiredVersion: 'auto',
           includeSecondaries: true,
         },
-        "@ngrx/router-store":{
+        '@ngrx/router-store': {
           singleton: true,
           strictVersion: true,
           requiredVersion: 'auto',

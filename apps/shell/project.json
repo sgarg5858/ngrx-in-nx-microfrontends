@@ -98,7 +98,15 @@
     "serve-mfe": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["nx serve posts", "nx serve shell"]
+        "commands": [
+          "nx serve users",
+          "nx serve todos",
+          "nx serve photos",
+          "nx serve albums",
+          "nx serve comments",
+          "nx serve posts",
+          "nx serve shell"
+        ]
       }
     }
   },

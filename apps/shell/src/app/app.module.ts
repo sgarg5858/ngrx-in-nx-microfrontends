@@ -9,7 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
@@ -21,6 +21,31 @@ import {HttpClientModule} from '@angular/common/http'
           path: 'posts',
           loadChildren: () =>
             import('posts/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'comments',
+          loadChildren: () =>
+            import('comments/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'albums',
+          loadChildren: () =>
+            import('albums/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'photos',
+          loadChildren: () =>
+            import('photos/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'todos',
+          loadChildren: () =>
+            import('todos/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'users',
+          loadChildren: () =>
+            import('users/Module').then((m) => m.RemoteEntryModule),
         },
       ],
       { initialNavigation: 'enabledBlocking' }

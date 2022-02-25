@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/albums/feature",
+  "sourceRoot": "libs/albums/feature/src",
+  "prefix": "ngrx-in-nx-mfe",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/albums/feature"],
+      "options": {
+        "jestConfig": "libs/albums/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/albums/feature/src/**/*.ts",
+          "libs/albums/feature/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

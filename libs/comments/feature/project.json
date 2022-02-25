@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/comments/feature",
+  "sourceRoot": "libs/comments/feature/src",
+  "prefix": "ngrx-in-nx-mfe",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/comments/feature"],
+      "options": {
+        "jestConfig": "libs/comments/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/comments/feature/src/**/*.ts",
+          "libs/comments/feature/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

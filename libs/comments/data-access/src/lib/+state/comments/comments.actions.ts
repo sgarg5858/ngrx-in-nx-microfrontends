@@ -1,11 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { CommentsEntity } from './comments.models';
 
-export const init = createAction('[Comments Page] Init');
+export const loadComments = createAction('[Comments Page] loadComments');
 
 export const loadCommentsSuccess = createAction(
   '[Comments/API] Load Comments Success',
-  props<{ comments: CommentsEntity[] }>()
+  props<{ comments: any[] }>()
 );
 
 export const loadCommentsFailure = createAction(

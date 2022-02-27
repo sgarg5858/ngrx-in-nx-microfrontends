@@ -11,9 +11,7 @@ export class CommentsFacade {
    * Combine pieces of state using createSelector,
    * and expose them as observables through the facade.
    */
-  loaded$ = this.store.pipe(select(CommentsSelectors.getCommentsLoaded));
-  allComments$ = this.store.pipe(select(CommentsSelectors.getAllComments));
-  selectedComments$ = this.store.pipe(select(CommentsSelectors.getSelected));
+  public comments$=this.store.select(CommentsSelectors.getComments);
 
   constructor(private readonly store: Store) {}
 
@@ -21,7 +19,11 @@ export class CommentsFacade {
    * Use the initialization action to perform one
    * or more tasks in your Effects.
    */
+
+  public loadComments()
+  {
+    this.store.dispatch(CommentsActions.loadComments());
+  }
   init() {
-    this.store.dispatch(CommentsActions.init());
   }
 }

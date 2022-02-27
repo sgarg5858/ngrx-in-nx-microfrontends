@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommentsFacade } from '@ngrx-in-nx-mfe/comments/data-access';
 
 @Component({
   selector: 'ngrx-in-nx-mfe-comments-container',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentsContainerComponent implements OnInit {
 
-  constructor() { }
+  constructor(public commentsFacade:CommentsFacade) { }
 
   ngOnInit(): void {
+    this.commentsFacade.loadComments();
   }
 
 }

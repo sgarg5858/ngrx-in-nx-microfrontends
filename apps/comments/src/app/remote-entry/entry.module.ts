@@ -11,7 +11,7 @@ import { RemoteEntryComponent } from './entry.component';
     RouterModule.forChild([
       {
         path: '',
-        component: RemoteEntryComponent,
+        loadChildren:()=>import('@ngrx-in-nx-mfe/comments/feature').then(m=>m.CommentsFeatureModule),
       },
     ]),
   ],

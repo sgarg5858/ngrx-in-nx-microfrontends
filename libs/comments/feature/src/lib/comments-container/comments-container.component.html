@@ -1,1 +1,5 @@
-<p>comments-container works!</p>
+<ul>
+    <li *ngFor="let comment of (commentsFacade.comments$ | async )">
+        {{comment | json}}
+    </li>
+</ul>

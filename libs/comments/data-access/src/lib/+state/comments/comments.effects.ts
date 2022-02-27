@@ -1,27 +1,21 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { catchError, map, mergeMap, of } from 'rxjs';
+import { CommentsService } from '../../comments.service';
 
 import * as CommentsActions from './comments.actions';
-import * as CommentsFeature from './comments.reducer';
 
 @Injectable()
 export class CommentsEffects {
-  init$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CommentsActions.init),
-      fetch({
-        run: (action) => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return CommentsActions.loadCommentsSuccess({ comments: [] });
-        },
-        onError: (action, error) => {
-          console.error('Error', error);
-          return CommentsActions.loadCommentsFailure({ error });
-        },
-      })
-    )
-  );
+  
+  loadComments$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(CommentsActions.loadComments),
+    mergeMap(()=> this.commentsService.getComments().pipe(
+      map((comments:any[])=>CommentsActions.loadCommentsSuccess({comments})),
+      catchError((err)=>of(CommentsActions.loadCommentsFailure({error:err})))
+    ) )
+  ))
 
-  constructor(private readonly actions$: Actions) {}
+  constructor(private readonly actions$: Actions,private commentsService:CommentsService) {}
 }

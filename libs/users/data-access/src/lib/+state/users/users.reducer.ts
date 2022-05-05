@@ -2,37 +2,39 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as UsersActions from './users.actions';
-import { UsersEntity } from './users.models';
+import { User } from './users.models';
 
 export const USERS_FEATURE_KEY = 'users';
 
-export interface State extends EntityState<UsersEntity> {
-  selectedId?: string | number; // which Users record has been selected
-  loaded: boolean; // has the Users list been loaded
-  error?: string | null; // last known error (if any)
+export interface UserState {
+ users:User[]|null,
+ didApiWork:boolean,
+ filterText:string,
+ error:any
 }
-
-export interface UsersPartialState {
-  readonly [USERS_FEATURE_KEY]: State;
+export const initialState: UserState ={
+  users:null,
+  didApiWork:false,
+  filterText:"",
+  error:null
 }
-
-export const usersAdapter: EntityAdapter<UsersEntity> =
-  createEntityAdapter<UsersEntity>();
-
-export const initialState: State = usersAdapter.getInitialState({
-  // set initial required properties
-  loaded: false,
-});
 
 const usersReducer = createReducer(
   initialState,
-  on(UsersActions.init, (state) => ({ ...state, loaded: false, error: null })),
-  on(UsersActions.loadUsersSuccess, (state, { users }) =>
-    usersAdapter.setAll(users, { ...state, loaded: true })
-  ),
-  on(UsersActions.loadUsersFailure, (state, { error }) => ({ ...state, error }))
+  on(UsersActions.loadUsers,(state,action)=>{
+    return {...state,didApiWork:false,error:null}
+  }),
+  on(UsersActions.loadUsersSuccess,(state,action)=>{
+    return {...state,didApiWork:true,error:null,users:action.users}
+  }),
+  on(UsersActions.loadUsersFailure,(state,action)=>{
+    return {...state,didApiWork:false,error:action.error,users:[]}
+  }),
+  on(UsersActions.filterUsers,(state,action)=>{
+    return {...state,filterText:action.filter}
+  })
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: UserState | undefined, action: Action) {
   return usersReducer(state, action);
 }

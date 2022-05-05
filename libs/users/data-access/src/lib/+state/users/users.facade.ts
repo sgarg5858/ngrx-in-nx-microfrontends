@@ -7,21 +7,18 @@ import * as UsersSelectors from './users.selectors';
 
 @Injectable()
 export class UsersFacade {
-  /**
-   * Combine pieces of state using createSelector,
-   * and expose them as observables through the facade.
-   */
-  loaded$ = this.store.pipe(select(UsersSelectors.getUsersLoaded));
-  allUsers$ = this.store.pipe(select(UsersSelectors.getAllUsers));
-  selectedUsers$ = this.store.pipe(select(UsersSelectors.getSelected));
+  users$ = this.store.select(UsersSelectors.getFilteredUsers);
+  didApiWork$ = this.store.select(UsersSelectors.didApiWork);
+  filterText$ = this.store.select(UsersSelectors.getFilteredText)
 
-  constructor(private readonly store: Store) {}
-
-  /**
-   * Use the initialization action to perform one
-   * or more tasks in your Effects.
-   */
-  init() {
-    this.store.dispatch(UsersActions.init());
+  constructor(private readonly store: Store) {
+  }
+  getUsers()
+  {
+    this.store.dispatch(UsersActions.loadUsers());
+  }
+  filterUsers(filter:string)
+  {
+    this.store.dispatch(UsersActions.filterUsers({filter}))
   }
 }

@@ -1,0 +1,23 @@
+<h1>Users:</h1>
+<ng-container *ngIf="(usersService.users$ | async) as users; else loadingSpinner">
+
+   <ng-container *ngIf="(usersService.didApiWork$ | async);else showApiError">
+    <ngrx-in-nx-mfe-filter-users (filterUsers)="filter($event)" [text]="(usersService.filterText$ |async)!" >
+
+    </ngrx-in-nx-mfe-filter-users>
+
+    <ngrx-in-nx-mfe-users [users]="users" >
+
+    </ngrx-in-nx-mfe-users>
+   </ng-container>
+   
+   <ng-template #showApiError>
+       <h1> Something Went Wrong Please try again. </h1>
+   </ng-template>
+
+</ng-container>
+<ng-template #loadingSpinner>
+    <h1>
+    Loading Users......
+    </h1>
+</ng-template>

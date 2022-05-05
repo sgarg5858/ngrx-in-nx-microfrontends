@@ -40,6 +40,9 @@
       "@ngrx-in-nx-mfe/users/data-access": [
         "libs/users/data-access/src/index.ts"
       ],
+      "@ngrx-in-nx-mfe/users/data-access-with-service": [
+        "libs/users/data-access-with-service/src/index.ts"
+      ],
       "@ngrx-in-nx-mfe/users/feature": ["libs/users/feature/src/index.ts"]
     }
   },

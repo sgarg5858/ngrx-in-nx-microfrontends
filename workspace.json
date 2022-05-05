@@ -25,6 +25,7 @@
     "todos-feature": "libs/todos/feature",
     "users": "apps/users",
     "users-data-access": "libs/users/data-access",
+    "users-data-access-with-service": "libs/users/data-access-with-service",
     "users-e2e": "apps/users-e2e",
     "users-feature": "libs/users/feature"
   }

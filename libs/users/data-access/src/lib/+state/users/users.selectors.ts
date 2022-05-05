@@ -1,36 +1,20 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { USERS_FEATURE_KEY, State, usersAdapter } from './users.reducer';
+import { USERS_FEATURE_KEY, UserState } from './users.reducer';
 
 // Lookup the 'Users' feature state managed by NgRx
-export const getUsersState = createFeatureSelector<State>(USERS_FEATURE_KEY);
+export const getUsersState = createFeatureSelector<UserState>(USERS_FEATURE_KEY);
 
-const { selectAll, selectEntities } = usersAdapter.getSelectors();
+export const didApiWorked = createSelector(getUsersState,
+  (userState:UserState)=>{  console.log("Did APi Worked??"); return userState.didApiWork})
 
-export const getUsersLoaded = createSelector(
-  getUsersState,
-  (state: State) => state.loaded
-);
+export const didApiWork = createSelector(didApiWorked,
+    (userState:boolean)=>{ console.log("Did APi Work");return userState})
 
-export const getUsersError = createSelector(
-  getUsersState,
-  (state: State) => state.error
-);
+export const getAllUsers = createSelector(getUsersState,(userState:UserState)=>userState.users);
 
-export const getAllUsers = createSelector(getUsersState, (state: State) =>
-  selectAll(state)
-);
+export const getFilteredText = createSelector(getUsersState,(userState:UserState)=>userState.filterText);
 
-export const getUsersEntities = createSelector(getUsersState, (state: State) =>
-  selectEntities(state)
-);
-
-export const getSelectedId = createSelector(
-  getUsersState,
-  (state: State) => state.selectedId
-);
-
-export const getSelected = createSelector(
-  getUsersEntities,
-  getSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
-);
+export const getFilteredUsers = createSelector(
+  getAllUsers,getFilteredText,
+  (users,text)=> users?.filter((user)=>user.name.includes(text)),
+)

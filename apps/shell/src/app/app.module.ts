@@ -57,6 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
         runtimeChecks: {
           strictActionImmutability: true,
           strictStateImmutability: true,
+          strictActionSerializability:true,
+          strictStateSerializability:true
         },
       }
     ),

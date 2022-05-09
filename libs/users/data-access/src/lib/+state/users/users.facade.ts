@@ -15,7 +15,7 @@ export class UsersFacade {
   }
   getUsers()
   {
-    this.store.dispatch(UsersActions.loadUsers());
+    this.store.dispatch(UsersActions.loadUsersAndCheckIfStoreAlreadyHasItElseMakeApiCall());
   }
   filterUsers(filter:string)
   {

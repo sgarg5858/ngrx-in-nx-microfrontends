@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType,OnInitEffects, concatLatestFrom } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { fetch } from '@nrwl/angular';
-import { catchError, concatMap, map, of, switchMap, tap } from 'rxjs';
+import { catchError, concatMap, debounceTime, map, of, switchMap, tap } from 'rxjs';
 import { UsersService } from '../../users.service';
 import * as UserSelectors from './users.selectors'
 import * as UsersActions from './users.actions';
@@ -10,9 +10,9 @@ import { User } from './users.models';
 import * as UsersFeature from './users.reducer';
 
 @Injectable()
-export class UsersEffects {
+export class UsersEffects implements OnInitEffects {
 
-  loadUsers$ = createEffect(() =>
+  loadUsersCheckCacheFirstThenAPI$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UsersActions.loadUsersAndCheckIfStoreAlreadyHasItElseMakeApiCall),
       concatLatestFrom(()=>this.store$.select(UserSelectors.getAllUsers)),
@@ -61,11 +61,14 @@ export class UsersEffects {
   })
   )
   );
+  //SelectorBasedSideEffect For Persisting State in LocalStorage
   serialize$ = createEffect(()=> 
   this.actions$.pipe(
+    //It will switch to changes to user state after our app has tried rehydration
     ofType(UsersActions.hydrateSuccess,UsersActions.hydrateFailure),
     switchMap(()=>this.store$.select(UserSelectors.getUsersState)),
     tap((userState:UsersFeature.UserState)=> {
+      console.log("Saving State")
       localStorage.setItem('userState',JSON.stringify(userState));
     })
 
@@ -73,8 +76,6 @@ export class UsersEffects {
     dispatch:false
   }
   )
-
-  
 
   constructor(private readonly actions$: Actions,private userService:UsersService,private store$:Store) {}
   ngrxOnInitEffects(): Action {

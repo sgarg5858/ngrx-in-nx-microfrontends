@@ -24,12 +24,12 @@ const usersReducer = createReducer(
   on(UsersActions.loadUsersAndCheckIfStoreAlreadyHasItElseMakeApiCall,(state,action)=>{
     return {...state,didApiWork:false,error:null}
   }),
-  on(UsersActions.loadUsersSuccess,(state,action)=>{
+  on(UsersActions.loadUsersSuccess,UsersActions.loadUsersSuccessFromCache,(state,action)=>{
     return {...state,didApiWork:true,error:null,users:action.users}
   }),
-  on(UsersActions.loadUsersSuccessFromCache,(state,action)=>{
-    return {...state,didApiWork:true,error:null}
-  }),
+  // on(UsersActions.loadUsersSuccessFromCache,(state,action)=>{
+  //   return {...state,didApiWork:true,error:null}
+  // }),
   on(UsersActions.loadUsersFailure,(state,action)=>{
     return {...state,didApiWork:false,error:action.error,users:[]}
   }),

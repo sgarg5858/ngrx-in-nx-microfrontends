@@ -49,7 +49,10 @@ export class UsersEffects implements OnInitEffects {
       try {
         const state:UsersFeature.UserState = JSON.parse(userState);
         console.log(state);
-        return UsersActions.hydrateSuccess({ state });
+       if(state.users!=null)
+       {
+        return UsersActions.hydrateSuccess({ state:{...state,filterText:""} });
+       }
 
        } catch (error) {
         localStorage.removeItem('userState');
@@ -66,12 +69,12 @@ export class UsersEffects implements OnInitEffects {
   this.actions$.pipe(
     //It will switch to changes to user state after our app has tried rehydration
     ofType(UsersActions.hydrateSuccess,UsersActions.hydrateFailure),
-    switchMap(()=>this.store$.select(UserSelectors.getUsersState)),
-    tap((userState:UsersFeature.UserState)=> {
-      console.log("Saving State")
+    switchMap(()=> this.store$.select(UserSelectors.getUsersState).pipe(
+    tap((userState)=> {
+      console.log("Saving State",userState)
       localStorage.setItem('userState',JSON.stringify(userState));
     })
-
+    ))
   ),{
     dispatch:false
   }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngrx-in-nx-mfe-filter-users',
@@ -15,7 +15,7 @@ export class FilterUsersComponent implements OnInit,OnDestroy,OnChanges {
 
   mySub = new Subscription();
 
-  filter = new FormControl(this.text,[Validators.required]);
+  filter = new FormControl("",[Validators.required]);
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -28,9 +28,12 @@ export class FilterUsersComponent implements OnInit,OnDestroy,OnChanges {
 
   ngOnInit(): void {
     this.mySub.add(
-      this.filter.valueChanges.pipe(debounceTime(200))
+      this.filter.valueChanges.pipe(debounceTime(200),distinctUntilChanged())
       .subscribe((value:string)=>
+      {
+        console.log(value);
         this.filterUsers.emit(value)
+      }
       )
     )
   }

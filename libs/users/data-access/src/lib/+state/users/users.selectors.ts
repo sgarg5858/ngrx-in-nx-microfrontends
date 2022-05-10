@@ -12,8 +12,8 @@ export const didApiWork = createSelector(didApiWorked,
 
 export const getAllUsers = createSelector(getUsersState,(userState:UserState)=>userState.users);
 
-export const getFilteredText = createSelector(getUsersState,(userState:UserState)=>userState.filterText);
-
+export const getText = createSelector(getUsersState,(userState:UserState)=>userState.filterText);
+export const getFilteredText = createSelector(getText,(text:string)=>text);
 export const getFilteredUsers = createSelector(
   getAllUsers,getFilteredText,
   (users,text)=> users?.filter((user)=>user.name.includes(text)),
